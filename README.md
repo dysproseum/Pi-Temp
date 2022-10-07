@@ -1,4 +1,8 @@
-## Introduction
+## Circuit Diagram
+
+![Circuit Diagram](/Circuit.png?raw=true "Circuit Diagram")
+
+## Introduction from cwalk
 Web server using a Raspberry Pi and DHT22 sensor to graph the humidity and temperature in my apartment over time. The data can be accessed over a web browser.
 
 Skills I learned during this project:
@@ -36,6 +40,3 @@ The main view are 2 tables combined with Google Charts graphs. The tables both s
 
 YouTube: https://www.youtube.com/watch?v=hFqNiZ4p0Ss
 
-## Circuit Diagram
-
-![Circuit Diagram](/Circuit.png?raw=true "Circuit Diagram")
