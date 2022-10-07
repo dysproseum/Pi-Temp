@@ -39,7 +39,7 @@ import sys
 import Adafruit_DHT
 
 def log_values(sensor_id, temp, hum):
-	conn=sqlite3.connect('/var/www/lab_app/lab_app.db')  #It is important to provide an
+	conn=sqlite3.connect('lab_app.db')  #It is important to provide an
 							     #absolute path to the database
 							     #file, otherwise Cron won't be
 							     #able to find it!
@@ -51,7 +51,7 @@ def log_values(sensor_id, temp, hum):
 	conn.commit()
 	conn.close()
 
-humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.AM2302, 17)
+humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, 17)
 temperature = temperature * 9/5.0 + 32
 # If you don't have a sensor but still wish to run this program, comment out all the 
 # sensor related lines, and uncomment the following lines (these will produce random

@@ -167,8 +167,12 @@
 	      return false; //This is so that the click on the link does not cause the page to refresh
 	});
     </script>
- 
-  <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart']}]}"></script>
+
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+	    google.charts.load('current', {packages: ['corechart']});
+	    google.charts.setOnLoadCallback(drawChart);
+    </script>
  
       <script>
        google.load('visualization', '1', {packages: ['corechart']});
