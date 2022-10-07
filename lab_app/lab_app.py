@@ -124,11 +124,12 @@ def get_records():
     # Create datetime object so that we can convert to UTC from the browser's local time
     from_date_obj       = datetime.datetime.strptime(from_date_str,'%Y-%m-%d %H:%M')
     to_date_obj         = datetime.datetime.strptime(to_date_str,'%Y-%m-%d %H:%M')
+    now = arrow.utcnow()
 
     # If range_h is defined, we don't need the from and to times
     if isinstance(range_h_int,int): 
-        arrow_time_from = arrow.utcnow().replace(hours=-range_h_int)
-        arrow_time_to   = arrow.utcnow()
+        arrow_time_from = now.shift(hours=-range_h_int)
+        arrow_time_to   = now
         from_date_utc   = arrow_time_from.strftime("%Y-%m-%d %H:%M")    
         to_date_utc     = arrow_time_to.strftime("%Y-%m-%d %H:%M")
         from_date_str   = arrow_time_from.to(timezone).strftime("%Y-%m-%d %H:%M")
