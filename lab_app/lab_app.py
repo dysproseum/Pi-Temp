@@ -127,11 +127,11 @@ def get_records():
 
     # If range_h is defined, we don't need the from and to times
     if isinstance(range_h_int,int): 
-        arrow_time_to = arrow.get(to_date_obj, timezone)
-        arrow_time_from = arrow.get(to_date_obj, timezone)
+        arrow_time_to = arrow.get(to_date_obj)
+        arrow_time_from = arrow.get(to_date_obj)
         arrow_time_from = arrow_time_from.shift(hours=-range_h_int)
-        from_date_utc   = arrow_time_from.to('Etc/UTC').strftime("%Y-%m-%d %H:%M")
-        to_date_utc   = arrow_time_to.to('Etc/UTC').strftime("%Y-%m-%d %H:%M")
+        from_date_utc   = arrow_time_from.strftime("%Y-%m-%d %H:%M")
+        to_date_utc   = arrow_time_to.strftime("%Y-%m-%d %H:%M")
     else:
         #Convert datetimes to UTC so we can retrieve the appropriate records from the database
         from_date_utc   = arrow.get(from_date_obj, timezone).to('Etc/UTC').strftime("%Y-%m-%d %H:%M")   
