@@ -4,6 +4,7 @@
     <!-- Basic Page Needs
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <meta charset="utf-8">
+    <meta http-equiv="refresh" content="900">
     <title>Temp Conditions by RPi</title>
     <meta name="description" content="Temp conditions - RPi">
     <meta name="author" content="Clayton Walker">
@@ -170,15 +171,8 @@
 
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
-	    google.charts.load('current', {packages: ['corechart']});
-	    google.charts.setOnLoadCallback(drawChart);
-    </script>
- 
-      <script>
-       google.load('visualization', '1', {packages: ['corechart']});
-    google.setOnLoadCallback(drawChart);
 
-    function drawChart() {
+    var drawChart = function() {
 
       var data = new google.visualization.DataTable();
       data.addColumn('datetime', 'Time');  
@@ -190,7 +184,7 @@
         ]);
 
       var options = {
-        width: 600,
+        width: 1200,
         height: 563,
         hAxis: {
           title: "Date",
@@ -209,13 +203,13 @@
 
     }
 
-      </script>
- 
-<script>
-    google.load('visualization', '1', {packages: ['corechart']});
+    google.load('visualization', 'current', {packages: ['corechart']});
     google.setOnLoadCallback(drawChart);
 
-    function drawChart() {
+    </script>
+    <script>
+
+    var drawChart = function() {
 
       var data = new google.visualization.DataTable();
       data.addColumn('datetime', 'Time');  
@@ -227,7 +221,7 @@
         ]);
 
       var options = {
-        width: 600,
+        width: 1200,
         height: 563,
         hAxis: {
           title: "Date",
@@ -246,5 +240,8 @@
 
     }
 
-      </script>  
+    google.load('visualization', 'current', {packages: ['corechart']});
+    google.setOnLoadCallback(drawChart);
+
+    </script>
 </html>

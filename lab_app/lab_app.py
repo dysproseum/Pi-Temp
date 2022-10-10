@@ -124,16 +124,14 @@ def get_records():
     # Create datetime object so that we can convert to UTC from the browser's local time
     from_date_obj       = datetime.datetime.strptime(from_date_str,'%Y-%m-%d %H:%M')
     to_date_obj         = datetime.datetime.strptime(to_date_str,'%Y-%m-%d %H:%M')
-    now = arrow.utcnow()
 
     # If range_h is defined, we don't need the from and to times
     if isinstance(range_h_int,int): 
-        arrow_time_from = now.shift(hours=-range_h_int)
-        arrow_time_to   = now
-        from_date_utc   = arrow_time_from.strftime("%Y-%m-%d %H:%M")    
-        to_date_utc     = arrow_time_to.strftime("%Y-%m-%d %H:%M")
-        from_date_str   = arrow_time_from.to(timezone).strftime("%Y-%m-%d %H:%M")
-        to_date_str     = arrow_time_to.to(timezone).strftime("%Y-%m-%d %H:%M")
+        arrow_time_to = arrow.get(to_date_obj, timezone)
+        arrow_time_from = arrow.get(to_date_obj, timezone)
+        arrow_time_from = arrow_time_from.shift(hours=-range_h_int)
+        from_date_utc   = arrow_time_from.to('Etc/UTC').strftime("%Y-%m-%d %H:%M")
+        to_date_utc   = arrow_time_to.to('Etc/UTC').strftime("%Y-%m-%d %H:%M")
     else:
         #Convert datetimes to UTC so we can retrieve the appropriate records from the database
         from_date_utc   = arrow.get(from_date_obj, timezone).to('Etc/UTC').strftime("%Y-%m-%d %H:%M")   
@@ -141,9 +139,9 @@ def get_records():
 
     conn                = sqlite3.connect('lab_app.db')
     curs                = conn.cursor()
-    curs.execute("SELECT * FROM temperatures WHERE rDateTime BETWEEN ? AND ?", (from_date_utc.format('YYYY-MM-DD HH:mm'), to_date_utc.format('YYYY-MM-DD HH:mm')))
+    curs.execute("SELECT * FROM temperatures WHERE rDateTime BETWEEN ? AND ? ORDER BY rDateTime DESC", (from_date_utc, to_date_utc))
     temperatures        = curs.fetchall()
-    curs.execute("SELECT * FROM humidities WHERE rDateTime BETWEEN ? AND ?", (from_date_utc.format('YYYY-MM-DD HH:mm'), to_date_utc.format('YYYY-MM-DD HH:mm')))
+    curs.execute("SELECT * FROM humidities WHERE rDateTime BETWEEN ? AND ? ORDER BY rDateTime DESC", (from_date_utc, to_date_utc))
     humidities          = curs.fetchall()
     conn.close()
 
